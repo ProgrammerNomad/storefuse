@@ -112,6 +112,12 @@
 - [x] Authentication
   - [x] Implement consumer key/secret auth
   - [x] Add request signing
+- [x] Storefront Integration
+  - [x] Create `storefuse.config.ts` in demo app
+  - [x] Add `.env.local.example` with credentials
+  - [x] Create adapter instance singleton
+  - [x] Update shop page to fetch real products
+  - [x] Display WooCommerce products with images, prices, stock
 - [ ] Testing
   - [ ] Setup test environment
   - [ ] Write integration tests (mock WooCommerce API)
