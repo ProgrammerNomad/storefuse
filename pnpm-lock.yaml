@@ -29,6 +29,12 @@ importers:
 
   apps/storefront:
     dependencies:
+      '@storefuse/adapter-woo-rest':
+        specifier: workspace:*
+        version: link:../../packages/adapters/adapter-woo-rest
+      '@storefuse/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       next:
         specifier: ^16.1.4
         version: 16.1.4(react-dom@19.2.3)(react@19.2.3)
