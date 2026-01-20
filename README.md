@@ -121,15 +121,15 @@ storefuse/
     modules/
       module-products/
       module-cart/
-      module-chec               # Tailwind v4 official theme
-      theme-child-template/     # safe overrides
+      module-checkout-redirect/
+      module-search/
       module-seo/
       module-blog/
       module-account/
 
     themes/
-      theme-core/
-      theme-child-template/
+      theme-core/               # Tailwind v4 official theme
+      theme-child-template/     # safe overrides
 
   docs/
     README.md
