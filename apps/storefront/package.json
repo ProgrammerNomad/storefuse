@@ -1,0 +1,25 @@
+{
+  "name": "@storefuse/storefront",
+  "version": "0.0.1",
+  "private": true,
+  "description": "StoreFuse demo storefront - Next.js 16 + Tailwind v4",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "^16.1.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.3.3"
+  }
+}

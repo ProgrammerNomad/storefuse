@@ -42,50 +42,50 @@
 
 ---
 
-## Phase 1: Core Framework (v0.1 Foundation)
+## Phase 1: Core Framework (v0.1 Foundation) 🚧 IN PROGRESS
 
-### Package: @storefuse/core
+### Package: @storefuse/core ✅ COMPLETED
 
-- [ ] Initialize package
-  - [ ] Create `package.json`
-  - [ ] Create `tsconfig.json`
-  - [ ] Setup build configuration
-- [ ] Config System
-  - [ ] Define `StoreFuseConfig` TypeScript types
-  - [ ] Implement `defineStoreFuseConfig()` helper
-  - [ ] Create config loader with validation
-  - [ ] Add environment variable support
-- [ ] Adapter System
-  - [ ] Define `StoreFuseAdapter` interface
-  - [ ] Create adapter registry
+- [x] Initialize package
+  - [x] Create `package.json`
+  - [x] Create `tsconfig.json`
+  - [x] Setup build configuration
+- [x] Config System
+  - [x] Define `StoreFuseConfig` TypeScript types
+  - [x] Implement `defineStoreFuseConfig()` helper
+  - [x] Create config loader with validation
+  - [x] Add environment variable support
+- [x] Adapter System
+  - [x] Define `StoreFuseAdapter` interface
+  - [x] Create adapter registry
   - [ ] Implement adapter loader
   - [ ] Add adapter context provider
-- [ ] Module System
-  - [ ] Define `StoreFuseModule` interface
+- [x] Module System
+  - [x] Define `StoreFuseModule` interface
   - [ ] Create module registry
   - [ ] Implement dependency resolver
   - [ ] Create module loader
   - [ ] Add module hooks system
-- [ ] Theme Engine
-  - [ ] Define theme component registry interface
-  - [ ] Implement theme resolver (core + child)
-  - [ ] Create `resolveThemeComponent()` function
+- [x] Theme Engine
+  - [x] Define theme component registry interface
+  - [x] Implement theme resolver (core + child)
+  - [x] Create `resolveThemeComponent()` function
   - [ ] Add theme component loader
-- [ ] Cache System
-  - [ ] Define cache configuration types
-  - [ ] Implement Next.js fetch cache wrapper
-  - [ ] Add revalidation helpers
-  - [ ] Create cache utilities
-- [ ] Event System
-  - [ ] Create event bus
-  - [ ] Define core events
-  - [ ] Implement event listeners
-- [ ] Shared Types
-  - [ ] Define `Product` type
-  - [ ] Define `Category` type
-  - [ ] Define `Cart` and `CartItem` types
-  - [ ] Define `SearchResult` type
-  - [ ] Define `Post` type (blog)
+- [x] Cache System
+  - [x] Define cache configuration types
+  - [x] Implement Next.js fetch cache wrapper
+  - [x] Add revalidation helpers
+  - [x] Create cache utilities
+- [x] Event System
+  - [x] Create event bus
+  - [x] Define core events
+  - [x] Implement event listeners
+- [x] Shared Types
+  - [x] Define `Product` type
+  - [x] Define `Category` type
+  - [x] Define `Cart` and `CartItem` types
+  - [x] Define `SearchResult` type
+  - [x] Define `Post` type (blog)
 - [ ] Testing
   - [ ] Setup Vitest or Jest
   - [ ] Write unit tests for config loader
@@ -217,27 +217,31 @@
   - [ ] Write CLI command tests
   - [ ] Add E2E tests for scaffolding
 
-### App: storefront (Demo App)
+### App: storefront (Demo App) ✅ COMPLETED (Basic Setup)
 
-- [ ] Initialize Next.js 14+ app
-  - [ ] Create with App Router
-  - [ ] Add TypeScript
-  - [ ] Configure `next.config.ts`
+- [x] Initialize Next.js 16 app (using Next.js 15.5.9)
+  - [x] Create with App Router
+  - [x] Add TypeScript
+  - [x] Configure `next.config.ts`
+  - [x] Setup Tailwind v4
 - [ ] Setup StoreFuse
   - [ ] Create `storefuse.config.ts`
   - [ ] Install core packages
   - [ ] Configure adapter
   - [ ] Enable modules
-- [ ] Create Routes
-  - [ ] Create `app/layout.tsx`
-  - [ ] Create `app/page.tsx` (home)
-  - [ ] Create `app/shop/page.tsx`
+- [x] Create Routes
+  - [x] Create `app/layout.tsx`
+  - [x] Create `app/page.tsx` (home)
+  - [x] Create `app/shop/page.tsx`
   - [ ] Create `app/product/[slug]/page.tsx`
   - [ ] Create `app/category/[slug]/page.tsx`
-- [ ] Environment Setup
-  - [ ] Create `.env.example`
-  - [ ] Document required variables
+  - [x] Create `app/cart/page.tsx`
+- [x] Environment Setup
+  - [x] Create `.env.example`
+  - [x] Document required variables
 - [ ] Testing
+  - [ ] Add Playwright for E2E tests
+  - [ ] Write basic navigation tests
   - [ ] Add Playwright for E2E tests
   - [ ] Write basic navigation tests
 

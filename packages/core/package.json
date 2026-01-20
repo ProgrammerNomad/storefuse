@@ -1,0 +1,38 @@
+{
+  "name": "@storefuse/core",
+  "version": "0.0.1",
+  "description": "StoreFuse framework core - config, types, and runtime",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "storefuse",
+    "woocommerce",
+    "nextjs",
+    "ecommerce",
+    "framework"
+  ],
+  "author": "ProgrammerNomad",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^19.0.1",
+    "tsup": "^8.5.1",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}
