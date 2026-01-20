@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "@storefuse/theme-core/styles";
+import "./globals.css";
 import { Header, Footer } from "@storefuse/theme-core";
 
 export const metadata: Metadata = {
