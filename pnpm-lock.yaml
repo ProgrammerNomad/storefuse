@@ -35,6 +35,9 @@ importers:
       '@storefuse/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@storefuse/theme-core':
+        specifier: workspace:*
+        version: link:../../packages/themes/theme-core
       next:
         specifier: ^16.1.4
         version: 16.1.4(react-dom@19.2.3)(react@19.2.3)
@@ -107,6 +110,37 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.2.3(react@19.2.3)
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.1
+        version: 19.2.8
+      '@types/react-dom':
+        specifier: ^19.0.2
+        version: 19.2.3(@types/react@19.2.8)
+      tsup:
+        specifier: ^8.3.5
+        version: 8.5.1(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+
+  packages/themes/theme-core:
+    dependencies:
+      '@storefuse/core':
+        specifier: workspace:*
+        version: link:../../core
+      next:
+        specifier: ^16.0.0
+        version: 16.1.4(react-dom@19.2.3)(react@19.2.3)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.3
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.3(react@19.2.3)
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.1.18
     devDependencies:
       '@types/react':
         specifier: ^19.0.1
@@ -2878,7 +2912,6 @@ packages:
 
   /tailwindcss@4.1.18:
     resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
-    dev: true
 
   /term-size@2.2.1:
     resolution: {integrity: sha512-wK0Ri4fOGjv/XPy8SBHZChl8CM7uMc5VML7SqiQ0zG7+J5Vr+RMQDoHa2CNT6KHUnTGIXH34UDMkPzAUyapBZg==}
