@@ -1,3 +1,5 @@
+"use client";
+
 import type { Product, Category } from "@storefuse/core";
 import ProductGrid from "../components/ProductGrid";
 

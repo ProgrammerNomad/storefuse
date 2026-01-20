@@ -1,6 +1,7 @@
 import { getAdapter } from "@/lib/adapter";
 import type { Product } from "@storefuse/core";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function ShopPage() {
   let products: Product[] = [];
@@ -41,9 +42,10 @@ export default async function ShopPage() {
       {products.length > 0 && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product) => (
-            <div
+            <Link
               key={product.id}
-              className="border rounded-lg overflow-hidden hover:shadow-lg transition"
+              href={`/product/${product.slug}`}
+              className="border rounded-lg overflow-hidden hover:shadow-lg transition block"
             >
               {product.images && product.images[0] && (
                 <Image
@@ -72,7 +74,7 @@ export default async function ShopPage() {
                 <p className="text-lg font-semibold mb-4">{product.price}</p>
                 {product.stockStatus === "instock" ? (
                   <button className="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition">
-                    Add to Cart
+                    View Details
                   </button>
                 ) : (
                   <button
@@ -83,7 +85,7 @@ export default async function ShopPage() {
                   </button>
                 )}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}
