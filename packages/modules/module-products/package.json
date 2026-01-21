@@ -1,7 +1,7 @@
 {
   "name": "@storefuse/module-products",
   "version": "0.1.0",
-  "description": "StoreFuse products module - provides product display components and pages",
+  "description": "StoreFuse products module - provides data fetching functions for products and categories",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

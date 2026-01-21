@@ -12,6 +12,11 @@ export const coreThemeRegistry = {
   Navigation: () => import("./components/Navigation"),
   Logo: () => import("./components/Logo"),
   ProductCard: () => import("./components/ProductCard"),
+  ProductImage: () => import("./components/ProductImage"),
+  ProductGrid: () => import("./components/ProductGrid"),
+  ProductList: () => import("./components/ProductList"),
+  ProductDetailPage: () => import("./components/ProductDetailPage"),
+  CategoryPage: () => import("./components/CategoryPage"),
   Button: () => import("./components/Button"),
   Input: () => import("./components/Input"),
   Badge: () => import("./components/Badge"),
@@ -30,6 +35,11 @@ export { default as Footer } from "./components/Footer";
 export { default as Navigation } from "./components/Navigation";
 export { default as Logo } from "./components/Logo";
 export { default as ProductCard } from "./components/ProductCard";
+export { default as ProductImage } from "./components/ProductImage";
+export { default as ProductGrid } from "./components/ProductGrid";
+export { default as ProductList } from "./components/ProductList";
+export { default as ProductDetailPage } from "./components/ProductDetailPage";
+export { default as CategoryPage } from "./components/CategoryPage";
 export { default as Button } from "./components/Button";
 export { default as Input } from "./components/Input";
 export { default as Badge } from "./components/Badge";
@@ -44,6 +54,11 @@ export type { FooterProps } from "./components/Footer";
 export type { NavigationProps } from "./components/Navigation";
 export type { LogoProps } from "./components/Logo";
 export type { ProductCardProps } from "./components/ProductCard";
+export type { ProductImageProps } from "./components/ProductImage";
+export type { ProductGridProps } from "./components/ProductGrid";
+export type { ProductListProps } from "./components/ProductList";
+export type { ProductDetailPageProps } from "./components/ProductDetailPage";
+export type { CategoryPageProps } from "./components/CategoryPage";
 export type { ButtonProps } from "./components/Button";
 export type { InputProps } from "./components/Input";
 export type { BadgeProps } from "./components/Badge";

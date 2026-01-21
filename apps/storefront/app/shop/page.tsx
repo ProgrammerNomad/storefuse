@@ -1,7 +1,6 @@
 import { getAdapter } from "@/lib/adapter";
 import type { Product } from "@storefuse/core";
-import Image from "next/image";
-import Link from "next/link";
+import { ProductGrid } from "@storefuse/theme-core";
 
 export default async function ShopPage() {
   let products: Product[] = [];
@@ -40,54 +39,7 @@ export default async function ShopPage() {
       )}
 
       {products.length > 0 && (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <Link
-              key={product.id}
-              href={`/product/${product.slug}`}
-              className="border rounded-lg overflow-hidden hover:shadow-lg transition block"
-            >
-              {product.images && product.images[0] && (
-                <Image
-                  src={product.images[0].src}
-                  alt={product.images[0].alt || product.name}
-                  width={300}
-                  height={400}
-                  className="w-full h-64 object-cover"
-                />
-              )}
-              {(!product.images || !product.images[0]) && (
-                <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-400">No image</span>
-                </div>
-              )}
-              <div className="p-4">
-                <h3 className="font-bold mb-2">{product.name}</h3>
-                {product.shortDescription && (
-                  <div
-                    className="text-sm text-gray-600 mb-2 line-clamp-2"
-                    dangerouslySetInnerHTML={{
-                      __html: product.shortDescription,
-                    }}
-                  />
-                )}
-                <p className="text-lg font-semibold mb-4">{product.price}</p>
-                {product.stockStatus === "instock" ? (
-                  <button className="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition">
-                    View Details
-                  </button>
-                ) : (
-                  <button
-                    disabled
-                    className="w-full bg-gray-300 text-gray-500 py-2 rounded cursor-not-allowed"
-                  >
-                    Out of Stock
-                  </button>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
+        <ProductGrid products={products} columns={4} />
       )}
 
       <div className="mt-12 p-6 bg-green-50 border border-green-200 rounded-lg">
