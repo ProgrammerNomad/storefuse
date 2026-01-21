@@ -61,8 +61,8 @@ export default function CustomProductCard({ product }: CustomProductCardProps) {
           
           <div className="flex items-center justify-between">
             <Price 
-              value={product.price}
-              saleValue={product.sale_price}
+              price={product.price}
+              regularPrice={product.sale_price}
               className="text-2xl font-bold text-purple-600"
             />
             
