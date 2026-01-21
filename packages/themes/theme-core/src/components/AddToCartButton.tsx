@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { Product } from "@storefuse/core";
 import { useCart } from "@storefuse/module-cart";
 import Button from "./Button";
@@ -26,11 +27,17 @@ export default function AddToCartButton({
   disabled = false,
 }: AddToCartButtonProps) {
   const { addToCart } = useCart();
+  const [isAdding, setIsAdding] = useState(false);
   const isInStock = product.stockStatus === "instock";
 
-  const handleClick = () => {
-    if (isInStock && !disabled) {
+  const handleClick = async () => {
+    if (isInStock && !disabled && !isAdding) {
+      setIsAdding(true);
       addToCart(product, quantity);
+      
+      setTimeout(() => {
+        setIsAdding(false);
+      }, 1000);
     }
   };
 
@@ -52,10 +59,10 @@ export default function AddToCartButton({
       variant="primary"
       size={size}
       onClick={handleClick}
-      disabled={disabled}
+      disabled={disabled || isAdding}
       className={className}
     >
-      Add to Cart
+      {isAdding ? "Added!" : "Add to Cart"}
     </Button>
   );
 }

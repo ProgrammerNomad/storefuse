@@ -7,7 +7,7 @@ import path from "path";
 
 const AVAILABLE_MODULES = [
   { name: "products", package: "@storefuse/module-products", available: true },
-  { name: "cart", package: "@storefuse/module-cart", available: false },
+  { name: "cart", package: "@storefuse/module-cart", available: true },
   { name: "checkout-redirect", package: "@storefuse/module-checkout-redirect", available: false },
   { name: "search", package: "@storefuse/module-search", available: false },
   { name: "seo", package: "@storefuse/module-seo", available: false },

@@ -41,7 +41,7 @@ export async function initCommand(options: InitOptions) {
       message: "Select modules to install:",
       choices: [
         { title: "Products", value: "products", selected: true },
-        { title: "Cart", value: "cart", disabled: true },
+        { title: "Cart", value: "cart", selected: true },
         { title: "Checkout", value: "checkout-redirect", disabled: true },
         { title: "Search", value: "search", disabled: true },
         { title: "SEO", value: "seo", disabled: true },
