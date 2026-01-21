@@ -59,6 +59,13 @@ export type {
   ModuleCompatibility,
 } from "./module-system";
 
+export {
+  ModuleRegistry,
+  ModuleLoader,
+  getPage,
+  getComponent,
+} from "./module-system";
+
 // ============================================
 // CONFIG (From README - Config System)
 // ============================================
@@ -83,6 +90,8 @@ export type {
 
 export {
   resolveThemeComponent,
+  createThemeManager,
+  ThemeManager,
 } from "./theme-engine";
 
 // ============================================

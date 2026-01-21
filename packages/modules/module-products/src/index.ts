@@ -11,9 +11,16 @@ export const ProductsModule: StoreFuseModule = {
   name: "products",
   dependsOn: [],
 
+  pages: {
+    "/": () => import("./pages/ShopPage").then(m => ({ default: m.default })),
+    "shop": () => import("./pages/ShopPage").then(m => ({ default: m.default })),
+    "product/[slug]": () => import("./pages/ProductDetailPage").then(m => ({ default: m.default })),
+    "category/[slug]": () => import("./pages/CategoryPage").then(m => ({ default: m.default })),
+  },
+
   hooks: {
-    onInit: (ctx) => {
-      console.log("[ProductsModule] Initialized", ctx);
+    onInit: () => {
+      console.log("[ProductsModule] Initialized");
     },
   },
 
