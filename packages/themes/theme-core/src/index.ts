@@ -17,6 +17,10 @@ export const coreThemeRegistry = {
   ProductList: () => import("./components/ProductList"),
   ProductDetailPage: () => import("./components/ProductDetailPage"),
   CategoryPage: () => import("./components/CategoryPage"),
+  AddToCartButton: () => import("./components/AddToCartButton"),
+  CartItem: () => import("./components/CartItem"),
+  CartSummary: () => import("./components/CartSummary"),
+  CartPage: () => import("./components/CartPage"),
   Button: () => import("./components/Button"),
   Input: () => import("./components/Input"),
   Badge: () => import("./components/Badge"),
@@ -40,6 +44,10 @@ export { default as ProductGrid } from "./components/ProductGrid";
 export { default as ProductList } from "./components/ProductList";
 export { default as ProductDetailPage } from "./components/ProductDetailPage";
 export { default as CategoryPage } from "./components/CategoryPage";
+export { default as AddToCartButton } from "./components/AddToCartButton";
+export { default as CartItem } from "./components/CartItem";
+export { default as CartSummary } from "./components/CartSummary";
+export { default as CartPage } from "./components/CartPage";
 export { default as Button } from "./components/Button";
 export { default as Input } from "./components/Input";
 export { default as Badge } from "./components/Badge";
@@ -59,6 +67,10 @@ export type { ProductGridProps } from "./components/ProductGrid";
 export type { ProductListProps } from "./components/ProductList";
 export type { ProductDetailPageProps } from "./components/ProductDetailPage";
 export type { CategoryPageProps } from "./components/CategoryPage";
+export type { AddToCartButtonProps } from "./components/AddToCartButton";
+export type { CartItemProps } from "./components/CartItem";
+export type { CartSummaryProps } from "./components/CartSummary";
+export type { CartPageProps } from "./components/CartPage";
 export type { ButtonProps } from "./components/Button";
 export type { InputProps } from "./components/Input";
 export type { BadgeProps } from "./components/Badge";

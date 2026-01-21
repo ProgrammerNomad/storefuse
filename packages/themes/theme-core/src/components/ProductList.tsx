@@ -5,7 +5,6 @@ import ProductCard from "./ProductCard";
 
 export interface ProductListProps {
   products: Product[];
-  onAddToCart?: (product: Product) => void;
   className?: string;
 }
 
@@ -17,7 +16,6 @@ export interface ProductListProps {
  */
 export default function ProductList({
   products,
-  onAddToCart,
   className = "",
 }: ProductListProps) {
   if (products.length === 0) {
@@ -34,7 +32,6 @@ export default function ProductList({
         <ProductCard
           key={product.id}
           product={product}
-          onAddToCart={onAddToCart}
         />
       ))}
     </div>

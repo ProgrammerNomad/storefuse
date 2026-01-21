@@ -159,10 +159,10 @@
 - [x] Initialize package
   - [x] Create `package.json`
   - [x] Create `tsconfig.json`
-  - [x] Add Tailwind v4 dependency
+  - [x] Add Tailwind v3 dependency
 - [x] Tailwind Configuration
-  - [x] Create `globals.css` with Tailwind v4
-  - [x] Setup CSS v4 syntax with @theme
+  - [x] Create `globals.css` with Tailwind v3
+  - [x] Setup traditional Tailwind directives
   - [x] Define design tokens
   - [x] Create global styles
 - [x] Core Components
@@ -238,7 +238,7 @@
   - [x] Create with App Router
   - [x] Add TypeScript
   - [x] Configure `next.config.ts`
-  - [x] Setup Tailwind v4
+  - [x] Setup Tailwind v3 (stable, production-ready)
 - [ ] Setup StoreFuse
   - [ ] Create `storefuse.config.ts`
   - [ ] Install core packages

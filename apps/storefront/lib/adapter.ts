@@ -13,6 +13,7 @@ export function getAdapter(): StoreFuseAdapter {
     }
 
     adapterInstance = new WooRestAdapter({
+      name: "woo-rest",
       endpoint: process.env.WOO_URL,
       keys: {
         consumerKey: process.env.WOO_KEY,

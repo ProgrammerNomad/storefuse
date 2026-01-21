@@ -6,7 +6,6 @@ import ProductGrid from "./ProductGrid";
 export interface CategoryPageProps {
   category: Category;
   products: Product[];
-  onAddToCart?: (product: Product) => void;
 }
 
 /**
@@ -18,7 +17,6 @@ export interface CategoryPageProps {
 export default function CategoryPage({
   category,
   products,
-  onAddToCart,
 }: CategoryPageProps) {
   return (
     <div className="container mx-auto px-4 py-12">
@@ -38,7 +36,7 @@ export default function CategoryPage({
         </p>
       </div>
 
-      <ProductGrid products={products} onAddToCart={onAddToCart} columns={4} />
+      <ProductGrid products={products} columns={4} />
     </div>
   );
 }

@@ -3,10 +3,10 @@
 import type { Product } from "@storefuse/core";
 import Image from "next/image";
 import Link from "next/link";
+import AddToCartButton from "./AddToCartButton";
 
 export interface ProductCardProps {
   product: Product;
-  onAddToCart?: (product: Product) => void;
   className?: string;
 }
 
@@ -17,52 +17,43 @@ export interface ProductCardProps {
  */
 export default function ProductCard({
   product,
-  onAddToCart,
   className = "",
 }: ProductCardProps) {
   const image = product.images?.[0];
-  const isInStock = product.stockStatus === "instock";
 
   return (
-    <div className={`border rounded-lg overflow-hidden hover:shadow-lg transition ${className}`}>
-      <Link href={`/product/${product.slug}`}>
+    <div className={`group border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 bg-white ${className}`}>
+      <Link href={`/product/${product.slug}`} className="block relative overflow-hidden">
         {image ? (
           <Image
             src={image.src}
             alt={image.alt || product.name}
-            width={300}
+            width={400}
             height={400}
-            className="w-full h-64 object-cover"
+            className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <div className="w-full h-64 bg-gray-200 flex items-center justify-center">
-            <span className="text-gray-400">No image</span>
+          <div className="w-full h-80 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+            <span className="text-gray-400 text-lg">No image</span>
           </div>
         )}
       </Link>
 
-      <div className="p-4">
-        <Link href={`/product/${product.slug}`} className="block hover:text-blue-600">
-          <h3 className="font-bold mb-2 line-clamp-2">{product.name}</h3>
+      <div className="p-5">
+        <Link href={`/product/${product.slug}`} className="block">
+          <h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors min-h-[3.5rem]">
+            {product.name}
+          </h3>
         </Link>
 
-        <p className="text-lg font-semibold mb-4">{product.price}</p>
+        <div className="flex items-baseline gap-2 mb-4">
+          <p className="text-2xl font-bold text-gray-900">{product.price}</p>
+          {product.regularPrice && product.regularPrice !== product.price && (
+            <p className="text-sm text-gray-500 line-through">{product.regularPrice}</p>
+          )}
+        </div>
 
-        {isInStock ? (
-          <button
-            onClick={() => onAddToCart?.(product)}
-            className="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition"
-          >
-            Add to Cart
-          </button>
-        ) : (
-          <button
-            disabled
-            className="w-full bg-gray-300 text-gray-500 py-2 px-4 rounded cursor-not-allowed"
-          >
-            Out of Stock
-          </button>
-        )}
+        <AddToCartButton product={product} size="md" className="w-full" />
       </div>
     </div>
   );

@@ -37,7 +37,7 @@ export default async function Category({ params }: CategoryPageProps) {
 export async function generateStaticParams() {
   try {
     const adapter = getAdapter();
-    const categories = await adapter.categories.list({ perPage: 100 });
+    const categories = await adapter.categories.list();
     
     return categories.map((category) => ({
       slug: category.slug,

@@ -1,7 +1,7 @@
 {
-  "name": "@storefuse/theme-core",
+  "name": "@storefuse/module-cart",
   "version": "0.1.0",
-  "description": "StoreFuse core theme with Tailwind v4 - provides base components for storefronts",
+  "description": "StoreFuse cart module - provides cart state management with localStorage persistence",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -10,8 +10,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
-    },
-    "./styles": "./src/styles/globals.css"
+    }
   },
   "scripts": {
     "build": "tsup",
@@ -21,22 +20,19 @@
   },
   "keywords": [
     "storefuse",
-    "theme",
-    "tailwind",
-    "nextjs",
-    "woocommerce"
+    "module",
+    "cart",
+    "woocommerce",
+    "nextjs"
   ],
   "author": "StoreFuse",
   "license": "MIT",
   "peerDependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "^16.0.0",
-    "tailwindcss": "^4.0.0"
+    "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@storefuse/core": "workspace:*",
-    "@storefuse/module-cart": "workspace:*"
+    "@storefuse/core": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.0.1",

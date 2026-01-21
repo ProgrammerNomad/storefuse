@@ -3,10 +3,10 @@
 import type { Product } from "@storefuse/core";
 import ProductImage from "./ProductImage";
 import Price from "./Price";
+import AddToCartButton from "./AddToCartButton";
 
 export interface ProductDetailPageProps {
   product: Product;
-  onAddToCart?: (product: Product) => void;
 }
 
 /**
@@ -17,14 +17,7 @@ export interface ProductDetailPageProps {
  */
 export default function ProductDetailPage({
   product,
-  onAddToCart,
 }: ProductDetailPageProps) {
-  const handleAddToCart = () => {
-    if (onAddToCart) {
-      onAddToCart(product);
-    }
-  };
-
   const isInStock = product.stockStatus === "instock";
 
   return (
@@ -81,21 +74,11 @@ export default function ProductDetailPage({
             )}
           </div>
 
-          {isInStock ? (
-            <button
-              onClick={handleAddToCart}
-              className="w-full md:w-auto bg-black text-white py-3 px-8 rounded text-lg hover:bg-gray-800 transition"
-            >
-              Add to Cart
-            </button>
-          ) : (
-            <button
-              disabled
-              className="w-full md:w-auto bg-gray-300 text-gray-500 py-3 px-8 rounded text-lg cursor-not-allowed"
-            >
-              Out of Stock
-            </button>
-          )}
+          <AddToCartButton
+            product={product}
+            size="lg"
+            className="w-full md:w-auto"
+          />
 
           {/* Categories */}
           {product.categories && product.categories.length > 0 && (

@@ -13,7 +13,7 @@ StoreFuse is an open-source modular storefront framework that uses WooCommerce a
 - **Child Theme Overrides**: User changes persist across updates
 - **Adapter-Based**: REST or GraphQL backend support
 - **Production-Ready**: Deploy to Vercel/VPS
-- **Modern UI Base**: Tailwind CSS v4 in the official theme package
+- **Modern UI Base**: Tailwind CSS v3 in the official theme package
 
 ---
 
@@ -30,7 +30,7 @@ StoreFuse is not a single "starter repo". It's a framework + CLI + modules + the
   - `@storefuse/adapter-woo-graphql`
 - **Modules**: `@storefuse/module-*` (cart, search, etc.)
 - **Themes**:
-  - `@storefuse/theme-core` (Tailwind v4 + default UI)
+  - `@storefuse/theme-core` (Tailwind v3 + default UI)
   - `@storefuse/theme-child-template` (safe user overrides)
 
 ### User Experience
@@ -76,7 +76,7 @@ Each module can contribute:
 
 
 **Styling Rule:**
-StoreFuse Core is UI-agnostic, but `theme-core` uses Tailwind v4 for modern customization and speed.
+StoreFuse Core is UI-agnostic, but `theme-core` uses Tailwind v3 for modern customization and speed.
 ### Layer D — Themes (Core + Child)
 
 - `theme-core` = Official UI (updatable)
@@ -328,7 +328,7 @@ export default async function ProductPage({ params }: any) {
 
 ---
 
-## Theme Engine (Tailwind v4 Official Theme)
+## Theme Engine (Tailwind v3 Official Theme)
 
 The theme engine keeps user changes safe during updates.
 
@@ -382,11 +382,11 @@ export async function resolveThemeComponent(key: ThemeKey) {
 - Predictable override pattern
 - Works on Vercel
 
-### Tailwind v4 Rule
+### Tailwind v3 Rule
 
-- `@storefuse/theme-core` uses Tailwind v4
+- `@storefuse/theme-core` uses Tailwind v3
 - StoreFuse core has no Tailwind dependency
-- A user's child theme can use Tailwind v4, CSS modules, or plain CSS
+- A user's child theme can use Tailwind v3, CSS modules, or plain CSS
 
 ---
 
@@ -555,7 +555,7 @@ compat: { core: "^0.2.0" }
 **Modules:**
 - `@storefuse/module-products`
 - `@storefuse/module-cart`
-- `@storefuse/module-chec (Tailwind v4)kout-redirect`
+- `@storefuse/module-checkout-redirect`
 - `@storefuse/module-search`
 - `@storefuse/module-seo`
 - `@storefuse/module-blog`
