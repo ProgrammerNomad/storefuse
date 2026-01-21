@@ -1,24 +1,19 @@
 "use client";
 
 import { useCart } from "@storefuse/module-cart";
-import Button from "./Button";
 
 export interface CartSummaryProps {
   className?: string;
-  showCheckout?: boolean;
-  onCheckout?: () => void;
 }
 
 /**
  * CartSummary Component - Core Theme
  * 
- * Displays cart totals and checkout button.
+ * Displays cart totals.
  * Can be overridden in child themes.
  */
 export default function CartSummary({
   className = "",
-  showCheckout = true,
-  onCheckout,
 }: CartSummaryProps) {
   const { subtotal, itemCount } = useCart();
 
@@ -38,23 +33,12 @@ export default function CartSummary({
         </div>
       </div>
 
-      <div className="border-t pt-4 mb-4">
+      <div className="border-t pt-4">
         <div className="flex justify-between font-bold text-lg">
           <span>Subtotal</span>
           <span>{subtotal}</span>
         </div>
       </div>
-
-      {showCheckout && (
-        <Button
-          variant="primary"
-          size="lg"
-          className="w-full"
-          onClick={onCheckout}
-        >
-          Proceed to Checkout
-        </Button>
-      )}
 
       <p className="text-xs text-gray-500 mt-4 text-center">
         Taxes and shipping calculated at checkout

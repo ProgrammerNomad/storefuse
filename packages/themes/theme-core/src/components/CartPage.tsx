@@ -3,6 +3,7 @@
 import { useCart } from "@storefuse/module-cart";
 import CartItem from "./CartItem";
 import CartSummary from "./CartSummary";
+import CheckoutButton from "./CheckoutButton";
 import Link from "next/link";
 
 export interface CartPageProps {
@@ -17,11 +18,6 @@ export interface CartPageProps {
  */
 export default function CartPage({ className = "" }: CartPageProps) {
   const { items, itemCount } = useCart();
-
-  const handleCheckout = () => {
-    // TODO: Integrate with module-checkout-redirect when available
-    window.location.href = "/checkout";
-  };
 
   if (itemCount === 0) {
     return (
@@ -72,7 +68,10 @@ export default function CartPage({ className = "" }: CartPageProps) {
 
         {/* Cart Summary */}
         <div className="lg:col-span-1">
-          <CartSummary onCheckout={handleCheckout} />
+          <div className="bg-white border rounded-lg p-6 sticky top-4">
+            <CartSummary />
+            <CheckoutButton className="w-full mt-4" />
+          </div>
         </div>
       </div>
     </div>

@@ -447,8 +447,8 @@ CLI is fully functional with all core commands:
 
 ### Priority 4: Module Development (Phase 2) ⏳ NEXT PRIORITY
 Continue building core modules:
-- [ ] Implement @storefuse/module-checkout-redirect
-- [ ] Implement @storefuse/module-search  
+- [x] Implement @storefuse/module-checkout-redirect
+- [x] Implement @storefuse/module-search  
 - [ ] Implement @storefuse/module-seo
 - [ ] Add WooCommerce GraphQL adapter
 

@@ -5,13 +5,13 @@ import { redirectToCheckout, type CheckoutRedirectOptions } from "@storefuse/mod
 import Button from "./Button";
 
 export interface CheckoutButtonProps {
-  storeUrl: string;
+  storeUrl?: string;
   className?: string;
   children?: React.ReactNode;
 }
 
 export default function CheckoutButton({ 
-  storeUrl, 
+  storeUrl = process.env.NEXT_PUBLIC_WOOCOMMERCE_URL || "", 
   className = "",
   children = "Proceed to Checkout"
 }: CheckoutButtonProps) {

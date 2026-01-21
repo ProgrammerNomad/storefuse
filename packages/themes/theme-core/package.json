@@ -37,7 +37,8 @@
   "dependencies": {
     "@storefuse/core": "workspace:*",
     "@storefuse/module-cart": "workspace:*",
-    "@storefuse/module-checkout-redirect": "workspace:*"
+    "@storefuse/module-checkout-redirect": "workspace:*",
+    "@storefuse/module-search": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.0.1",

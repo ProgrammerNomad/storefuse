@@ -22,6 +22,8 @@ export const coreThemeRegistry = {
   CartSummary: () => import("./components/CartSummary"),
   CartPage: () => import("./components/CartPage"),
   CheckoutButton: () => import("./components/CheckoutButton"),
+  SearchBar: () => import("./components/SearchBar"),
+  SearchResults: () => import("./components/SearchResults"),
   Button: () => import("./components/Button"),
   Input: () => import("./components/Input"),
   Badge: () => import("./components/Badge"),
@@ -50,6 +52,8 @@ export { default as CartItem } from "./components/CartItem";
 export { default as CartSummary } from "./components/CartSummary";
 export { default as CartPage } from "./components/CartPage";
 export { default as CheckoutButton } from "./components/CheckoutButton";
+export { SearchBar } from "./components/SearchBar";
+export { SearchResults } from "./components/SearchResults";
 export { default as Button } from "./components/Button";
 export { default as Input } from "./components/Input";
 export { default as Badge } from "./components/Badge";
@@ -74,6 +78,8 @@ export type { CartItemProps } from "./components/CartItem";
 export type { CartSummaryProps } from "./components/CartSummary";
 export type { CartPageProps } from "./components/CartPage";
 export type { CheckoutButtonProps } from "./components/CheckoutButton";
+export type { SearchBarProps } from "./components/SearchBar";
+export type { SearchResultsProps } from "./components/SearchResults";
 export type { ButtonProps } from "./components/Button";
 export type { InputProps } from "./components/Input";
 export type { BadgeProps } from "./components/Badge";

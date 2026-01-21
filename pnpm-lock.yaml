@@ -44,6 +44,9 @@ importers:
       '@storefuse/module-products':
         specifier: workspace:*
         version: link:../../packages/modules/module-products
+      '@storefuse/module-search':
+        specifier: workspace:*
+        version: link:../../packages/modules/module-search
       '@storefuse/theme-core':
         specifier: workspace:*
         version: link:../../packages/themes/theme-core
@@ -220,6 +223,22 @@ importers:
         specifier: ^5.7.2
         version: 5.9.3
 
+  packages/modules/module-search:
+    dependencies:
+      react:
+        specifier: ^18.2.0 || ^19.0.0
+        version: 19.2.3
+    devDependencies:
+      '@storefuse/core':
+        specifier: workspace:*
+        version: link:../../core
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(typescript@5.9.3)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/themes/theme-child-template:
     dependencies:
       '@storefuse/theme-core':
@@ -256,6 +275,9 @@ importers:
       '@storefuse/module-checkout-redirect':
         specifier: workspace:*
         version: link:../../modules/module-checkout-redirect
+      '@storefuse/module-search':
+        specifier: workspace:*
+        version: link:../../modules/module-search
       next:
         specifier: ^16.0.0
         version: 16.1.4(react-dom@19.2.3)(react@19.2.3)

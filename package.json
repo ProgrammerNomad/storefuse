@@ -17,7 +17,7 @@
     "packages/themes/*"
   ],
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --concurrency 15",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
