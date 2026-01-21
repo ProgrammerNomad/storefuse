@@ -1,6 +1,6 @@
 # StoreFuse
 
-Complete Architecture Spec — WooCommerce + Next.js Modular Framework (Tailwind v4)
+Complete Architecture Spec — WooCommerce + Next.js Modular Framework (Tailwind v3)
 
 ## Overview
 
@@ -128,7 +128,7 @@ storefuse/
       module-account/
 
     themes/
-      theme-core/               # Tailwind v4 official theme
+      theme-core/               # Tailwind v3 official theme
       theme-child-template/     # safe overrides
 
   docs/
