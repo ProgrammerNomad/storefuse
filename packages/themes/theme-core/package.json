@@ -29,14 +29,15 @@
   "author": "StoreFuse",
   "license": "MIT",
   "peerDependencies": {
+    "next": "^16.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "^16.0.0",
     "tailwindcss": "^4.0.0"
   },
   "dependencies": {
     "@storefuse/core": "workspace:*",
-    "@storefuse/module-cart": "workspace:*"
+    "@storefuse/module-cart": "workspace:*",
+    "@storefuse/module-checkout-redirect": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.0.1",

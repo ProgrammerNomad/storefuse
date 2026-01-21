@@ -38,6 +38,9 @@ importers:
       '@storefuse/module-cart':
         specifier: workspace:*
         version: link:../../packages/modules/module-cart
+      '@storefuse/module-checkout-redirect':
+        specifier: workspace:*
+        version: link:../../packages/modules/module-checkout-redirect
       '@storefuse/module-products':
         specifier: workspace:*
         version: link:../../packages/modules/module-products
@@ -173,6 +176,22 @@ importers:
         specifier: ^5.7.2
         version: 5.9.3
 
+  packages/modules/module-checkout-redirect:
+    dependencies:
+      react:
+        specifier: ^18.2.0 || ^19.0.0
+        version: 19.2.3
+    devDependencies:
+      '@storefuse/core':
+        specifier: workspace:*
+        version: link:../../core
+      tsup:
+        specifier: ^8.0.2
+        version: 8.5.1(typescript@5.9.3)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/modules/module-products:
     dependencies:
       '@storefuse/core':
@@ -234,6 +253,9 @@ importers:
       '@storefuse/module-cart':
         specifier: workspace:*
         version: link:../../modules/module-cart
+      '@storefuse/module-checkout-redirect':
+        specifier: workspace:*
+        version: link:../../modules/module-checkout-redirect
       next:
         specifier: ^16.0.0
         version: 16.1.4(react-dom@19.2.3)(react@19.2.3)
