@@ -1,11 +1,11 @@
 # StoreFuse Demo Storefront
 
-Demo storefront application built with Next.js 16 and Tailwind v4.
+Demo storefront application built with Next.js 16 and Tailwind v3.
 
 ## Tech Stack
 
 - **Next.js 16** - React framework with App Router
-- **Tailwind CSS v4** - Utility-first CSS framework
+- **Tailwind CSS v3** - Utility-first CSS framework
 - **TypeScript** - Type safety
 - **React 19** - UI library
 
@@ -50,7 +50,7 @@ storefront/
 
 This is a demo storefront with:
 - ✅ Next.js 16 setup
-- ✅ Tailwind v4 configuration
+- ✅ Tailwind v3 configuration
 - ✅ Basic routing (home, shop, cart)
 - ✅ Responsive layout
 - ⏳ WooCommerce integration (coming in Phase 1)
