@@ -1,6 +1,6 @@
 # StoreFuse
 
-Complete Architecture Spec — WooCommerce + Next.js Modular Framework (Tailwind v3)
+Complete Architecture Spec - WooCommerce + Next.js Modular Framework (Tailwind v3)
 
 ## Overview
 
