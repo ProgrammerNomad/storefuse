@@ -45,7 +45,7 @@ npm run dev
 
 ## System Architecture
 
-### Layer A — Backend (User Already Has)
+### Layer A - Backend (User Already Has)
 
 - WordPress
 - WooCommerce
@@ -54,7 +54,7 @@ npm run dev
   - WooGraphQL
   - JWT Auth plugin (if account module used)
 
-### Layer B — StoreFuse Core (Framework)
+### Layer B - StoreFuse Core (Framework)
 
 Responsible for:
 - Config loading
@@ -64,7 +64,7 @@ Responsible for:
 - Caching helpers
 - Event bus
 
-### Layer C — Modules (Feature Plugins)
+### Layer C - Modules (Feature Plugins)
 
 Each module can contribute:
 - Routes/pages
@@ -77,7 +77,7 @@ Each module can contribute:
 
 **Styling Rule:**
 StoreFuse Core is UI-agnostic, but `theme-core` uses Tailwind v3 for modern customization and speed.
-### Layer D — Themes (Core + Child)
+### Layer D - Themes (Core + Child)
 
 - `theme-core` = Official UI (updatable)
 - `theme-child` = User override (safe across core updates)
@@ -248,7 +248,7 @@ export interface StoreFuseAdapter {
 
 ## Module System
 
-StoreFuse modules are like plugins — the main USP of StoreFuse.
+StoreFuse modules are like plugins - the main USP of StoreFuse.
 
 ### Module Interface
 
@@ -414,7 +414,7 @@ export async function resolveThemeComponent(key: ThemeKey) {
 
 ## Cart & Checkout
 
-### MVP Strategy (Phase 1 — Recommended)
+### MVP Strategy (Phase 1 - Recommended)
 
 **Works with all Woo payment gateways**
 
