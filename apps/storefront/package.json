@@ -4,7 +4,7 @@
   "private": true,
   "description": "StoreFuse demo storefront - Next.js 16 + Tailwind v4",
   "scripts": {
-    "dev": "cross-env TURBOPACK=false next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

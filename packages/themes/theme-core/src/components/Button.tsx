@@ -20,10 +20,10 @@ export default function Button({
   const baseStyles = "font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed";
   
   const variants = {
-    primary: "bg-black text-white hover:bg-gray-800 active:bg-gray-900 shadow-sm hover:shadow-md",
-    secondary: "bg-gray-600 text-white hover:bg-gray-700 active:bg-gray-800",
-    outline: "border-2 border-black text-black hover:bg-black hover:text-white",
-    ghost: "text-black hover:bg-gray-100 active:bg-gray-200",
+    primary: "bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700 shadow-sm hover:shadow-md",
+    secondary: "bg-gray-100 text-warm-text hover:bg-gray-200 active:bg-gray-300",
+    outline: "border-2 border-brand-500 text-brand-600 hover:bg-brand-500 hover:text-white",
+    ghost: "text-warm-text hover:bg-gray-100 active:bg-gray-200",
   };
   
   const sizes = {

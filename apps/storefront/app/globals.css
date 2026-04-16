@@ -2,6 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: system-ui, -apple-system, sans-serif;
+@layer base {
+  :root {
+    --color-bg: #FAFAF7;
+    --color-text: #111827;
+    --color-muted: #6B7280;
+    --color-border: #E5E7EB;
+    --color-accent: #C2724F;
+    --color-accent-hover: #a85c3b;
+    --radius-card: 1rem;
+    --radius-btn: 0.625rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Prevent layout shift from scrollbar */
+  html {
+    scrollbar-gutter: stable;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-500 text-white rounded-lg px-6 py-3 font-semibold hover:bg-brand-600 active:bg-brand-700 transition-colors duration-150;
+  }
+
+  .btn-secondary {
+    @apply border border-warm-border text-warm-text rounded-lg px-6 py-3 font-semibold hover:bg-gray-50 active:bg-gray-100 transition-colors duration-150;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl border border-warm-border shadow-card overflow-hidden;
+  }
+
+  .card-hover {
+    @apply hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-200;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full;
+  }
+
+  .section-title {
+    @apply text-2xl md:text-3xl font-bold text-warm-text;
+  }
+
+  .container-padded {
+    @apply container mx-auto px-4 md:px-6 lg:px-8;
+  }
 }
