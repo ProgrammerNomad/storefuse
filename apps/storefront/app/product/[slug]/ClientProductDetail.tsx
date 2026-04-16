@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductDetailPage } from "@storefuse/theme-core";
+import { useThemeComponent } from "@storefuse/core";
 import type { Product } from "@storefuse/core";
 
 interface ClientProductDetailProps {
@@ -8,5 +8,8 @@ interface ClientProductDetailProps {
 }
 
 export default function ClientProductDetail({ product }: ClientProductDetailProps) {
+  const ProductDetailPage = useThemeComponent("ProductDetailPage");
+
+  if (!ProductDetailPage) return null;
   return <ProductDetailPage product={product} />;
 }

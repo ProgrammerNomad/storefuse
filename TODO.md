@@ -1,7 +1,7 @@
 # StoreFuse Development Roadmap
 
-**Status**: Planning Phase
-**Last Updated**: January 20, 2026
+**Status**: Active Development
+**Last Updated**: April 16, 2026
 
 ---
 
@@ -45,18 +45,27 @@
 ## Phase 1: Core Framework (v0.1 Foundation) ✅ COMPLETED
 
 ### Summary
-Phase 1 is now complete with all core packages built and working:
+Phase 1 packages are built and compiling. However a post-phase review found that several systems exist as code but are not yet connected to the running app.
+
 - ✅ @storefuse/core - Framework core with config, adapter, module system, theme engine
 - ✅ @storefuse/adapter-woo-rest - WooCommerce REST API adapter
 - ✅ @storefuse/module-products - Product listings and pages
 - ✅ @storefuse/module-cart - Cart context and types
 - ✅ @storefuse/theme-core - Default theme with Tailwind v3
 - ✅ @storefuse/theme-child-template - Child theme template for safe overrides
-- ✅ Storefront demo app with 137 static pages generated
+- ✅ Storefront demo app routes working
 
 **Build Status**: ✅ All packages build successfully
 **Routes**: ✅ Home, Shop, Cart, Product Detail, Category pages working
-**Theme System**: ✅ Child theme override system fully implemented
+**Theme System**: ⚠️ Theme engine code exists but is NOT wired to the running app
+
+> **Known Gaps Found in Review:**
+> - `layout.tsx` hard-imports `@storefuse/theme-core` directly — child theme registry is never consulted
+> - `storefuse.config.ts` `theme.child` setting is declarative only — does nothing at runtime
+> - Module `pages` registry and actual Next.js `app/` routes are two parallel systems — module registry is never used
+> - `module-products` and `theme-core` both contain duplicate UI components (ProductCard, ProductGrid, etc.) — ownership is unclear
+> - CLI `init` command scaffolds direct theme-core imports — new projects start with the wrong pattern
+> - EventBus exists but is not connected to any module lifecycle or rendering pipeline
 
 ### Package: @storefuse/core ✅ COMPLETED
 
@@ -312,7 +321,10 @@ Phase 1 is now complete with all core packages built and working:
 
 ---
 
-## Phase 2: Enhanced Features (v0.2)
+## Completed Interim Work (Originally Planned as Phase 2)
+
+> These were completed before the architecture gaps were identified. They are tracked here for reference.
+> Architecture wiring (Phase 2 below) must still be completed.
 
 ### Package: @storefuse/module-cart ✅ COMPLETED
 
@@ -392,7 +404,7 @@ Phase 1 is now complete with all core packages built and working:
   - [ ] Test meta tag generation
   - [ ] Validate structured data
 
-### Documentation (v0.2)
+### Documentation (v0.2 — superseded by Phase 3)
 
 - [x] Create theme customization guide (docs/themes.md)
 - [ ] Write getting started guide
@@ -402,70 +414,137 @@ Phase 1 is now complete with all core packages built and working:
 
 ---
 
-## Next Steps (Phase 2 - Start Here) ✅ MODULE SYSTEM COMPLETE
+## Phase 2: Architecture Fix — Connect the Dots (v0.2) ✅ COMPLETED
 
-### Priority 1: Module System Implementation ✅ COMPLETED
-The module system is now fully implemented:
-- [x] Implement module loader in @storefuse/core
-- [x] Implement module registry  
-- [x] Implement dependency resolver (with circular dependency detection)
-- [x] Add module hooks system (onInit, onRequest)
-- [x] Create getPage() helper for routing
-- [x] Update products module to use new system
-- [x] Fix TypeScript compilation errors
-- [x] Dev server running successfully
-
-**Module System Features:**
-- `ModuleRegistry` - Central registry for modules, pages, and components
-- `ModuleLoader` - Loads modules in dependency order with hooks
-- `getPage()` / `getComponent()` - Helper functions for resolving module contributions
-- Circular dependency detection
-- Dynamic module loading
-
-### Priority 2: Cart Module Enhancement ✅ COMPLETED
-Cart module is fully functional with UI components:
-- [x] CartContext with local storage persistence implemented
-- [x] Cart hooks (useCart) working
-- [x] Cart operations (add, remove, update, clear, calculateTotals)
-- [x] CartItem component with quantity controls
-- [x] CartSummary component with totals
-- [x] AddToCartButton with visual feedback ("Added!" state)
-- [x] Header integration with cart count badge
-- [x] CartPage fully functional with empty state handling
-- [x] CartProvider wrapping entire app in layout
-
-### Priority 3: CLI Development ✅ COMPLETED
-CLI is fully functional with all core commands:
-- [x] Install Commander.js dependency
-- [x] Setup CLI entry point with bin configuration
-- [x] Implement `storefuse init` command (scaffolds new projects)
-- [x] Implement `storefuse add module` command (adds modules interactively)
-- [x] Implement `storefuse add theme` command (creates child theme)
-- [x] Implement `storefuse doctor` command (health checks for env, API, versions)
-- [x] Build successfully (ESM + DTS)
-- [x] Enable cart module in available modules
-
-### Priority 4: Module Development (Phase 2) ⏳ NEXT PRIORITY
-Continue building core modules:
-- [x] Implement @storefuse/module-checkout-redirect
-- [x] Implement @storefuse/module-search  
-- [ ] Implement @storefuse/module-seo
-- [ ] Add WooCommerce GraphQL adapter
-
-### Priority 5: Testing Infrastructure
-Add testing after core modules are complete:
-- [ ] Setup Vitest for unit tests
-- [ ] Add tests for theme resolver
-- [ ] Add tests for config loader
-- [ ] Add tests for module system
-- [ ] Add tests for cart context
-- [ ] Setup Playwright for E2E tests
-- [ ] Write E2E tests for product browsing
-- [ ] Write E2E tests for cart flow
+> **Goal**: Make the framework actually work as designed. The code exists. The wiring does not.
+> All original promises (child theme overrides, module-driven routing, config-driven runtime)
+> must become real by the end of this phase.
 
 ---
 
-## Phase 2: Enhanced Features (v0.2) ⏳ NEXT
+### Step 1: Fix UI Ownership — Remove Duplicate Components from module-products
+
+**Rule**: Modules own data/logic/contracts. Themes own UI.
+
+- [x] Delete `packages/modules/module-products/src/components/ProductCard.tsx`
+- [x] Delete `packages/modules/module-products/src/components/ProductGrid.tsx`
+- [x] Delete `packages/modules/module-products/src/components/ProductImage.tsx`
+- [x] Delete `packages/modules/module-products/src/components/ProductList.tsx`
+- [x] Delete `packages/modules/module-products/src/components/Price.tsx`
+- [x] Delete `packages/modules/module-products/src/components/` directory
+- [x] Update `packages/modules/module-products/src/index.ts` — remove all component exports
+- [x] Verify `packages/themes/theme-core` is the single source of truth for all UI components
+- [x] Confirm build passes after deletion
+
+---
+
+### Step 2: Wire the Theme Engine — ThemeProvider + useThemeComponent
+
+**Goal**: Child theme registry is read at runtime and overrides core components transparently.
+
+- [x] Create `packages/core/src/theme-engine/ThemeProvider.tsx`
+  - [x] `ThemeProvider` component — accepts `coreRegistry` and `childRegistry` props, merges them (child wins), exposes via React context
+  - [x] `useThemeComponent(key)` hook — returns the resolved component for a given key from context
+  - [x] `ThemeContext` — typed React context holding the merged registry
+- [x] Export `ThemeProvider` and `useThemeComponent` from `packages/core/src/index.ts`
+- [x] Export `ThemeProvider` and `useThemeComponent` from `packages/core/src/theme-engine/index.ts`
+- [x] Add server-side helper `getThemeComponent(key, coreRegistry, childRegistry)` for use in Server Components
+- [ ] Write unit tests for merge logic (child wins, core fallback, missing key throws)
+
+---
+
+### Step 3: Connect ThemeProvider in the Storefront App
+
+**Goal**: `layout.tsx` no longer hard-imports from `@storefuse/theme-core`. All components resolve through the theme engine.
+
+- [x] Update `apps/storefront/app/layout.tsx`
+  - [x] Import `coreThemeRegistry` from `@storefuse/theme-core`
+  - [x] Import `childThemeRegistry` from `../theme-child`
+  - [x] Wrap app with `<ThemeProvider core={coreThemeRegistry} child={childThemeRegistry}>`
+  - [x] Remove direct `import { Header, Footer } from "@storefuse/theme-core"`
+  - [x] Replace `<Header>` and `<Footer>` with components resolved via `useThemeComponent`
+- [x] Update `apps/storefront/app/product/[slug]/ClientProductDetail.tsx`
+  - [x] Remove direct `import { ProductDetailPage } from "@storefuse/theme-core"`
+  - [x] Resolve `ProductDetailPage` via theme engine
+- [x] Update `apps/storefront/app/category/[slug]/ClientCategoryPage.tsx`
+  - [x] Remove direct `import { CategoryPage } from "@storefuse/theme-core"`
+  - [x] Resolve `CategoryPage` via theme engine
+- [ ] Test: activate a child theme component (e.g. custom Header) and confirm it renders instead of core Header without touching any core file
+
+---
+
+### Step 4: Make storefuse.config.ts Drive the Runtime
+
+**Goal**: The config file is the single source of truth — reading `theme.child` loads the correct child registry automatically.
+
+- [x] Create `packages/core/src/runtime/index.ts` — `createStoreFuseApp(config)` factory
+  - [x] Reads `config.theme.core` and `config.theme.child`
+  - [x] Dynamically imports and returns merged theme registry
+  - [x] Returns loaded module list
+- [x] Export `createStoreFuseApp` from `packages/core/src/index.ts`
+- [ ] Update `apps/storefront/app/layout.tsx` to call `createStoreFuseApp` instead of manually importing registries
+- [ ] Confirm changing only `storefuse.config.ts` `theme.child` is enough to switch child themes
+
+---
+
+### Step 5: Fix CLI — Scaffold the Correct Pattern
+
+**Goal**: Every project created with `storefuse init` starts with the correct wiring.
+
+- [x] Update `packages/cli/src/commands/init.ts` template for `layout.tsx`
+  - [x] Generated `layout.tsx` must use `ThemeProvider` + `useThemeComponent` — not direct imports
+  - [x] Generated `layout.tsx` must call `createStoreFuseApp(config)` to load registries
+- [x] Update CLI `add theme child` command
+  - [x] Generated `theme-child/index.ts` has correct registry export
+  - [x] Generated example component uses correct prop types from `@storefuse/core`
+- [ ] Re-test `storefuse init my-store` end-to-end and confirm child theme override works out of the box
+
+---
+
+### Step 6: Connect Module Page Registry to Next.js Routing
+
+**Goal**: Module `pages` definitions become the source of truth. Next.js route files delegate to modules instead of duplicating logic.
+
+- [x] Decide routing strategy (Option A — Thin shell routes): Keep `app/shop/page.tsx` etc. but make them thin delegations through the theme engine
+- [x] Update `app/shop/page.tsx` — server-side data fetch, delegates rendering to `ClientShopPage` (uses `useThemeComponent("ProductGrid")`)
+- [x] Update `app/product/[slug]/page.tsx` — already thin shell to `ClientProductDetail` (uses `useThemeComponent`)
+- [x] Update `app/category/[slug]/page.tsx` — already thin shell to `ClientCategoryPage` (uses `useThemeComponent`)
+- [x] Update `app/cart/page.tsx` — delegates to `ClientCartPage` (uses `useThemeComponent("CartPage")`)
+- [ ] Confirm adding a new module with a `pages` entry works without manually creating route files
+
+---
+
+### Step 7: Wire EventBus to Module Lifecycle for Behavior Overrides
+
+**Goal**: Child themes and modules can hook into business logic events, not just swap UI.
+
+- [x] Define standard commerce events in `packages/core/src/events/index.ts`
+  - [x] `cart:before-add` / `cart:after-add`
+  - [x] `cart:before-remove` / `cart:after-remove`
+  - [x] `checkout:before-redirect`
+  - [x] `product:view`
+  - [x] `search:query`
+- [x] Fire `cart:before-add` and `cart:after-add` inside `module-cart` CartContext
+- [x] Fire `cart:before-remove` and `cart:after-remove` inside `module-cart` CartContext
+- [x] Fire `cart:cleared` inside `module-cart` CartContext
+- [x] Fire `checkout:before-redirect` inside `module-checkout-redirect`
+- [x] Expose global `storefuseEvents` singleton from `@storefuse/core`
+- [x] Add example in `theme-child/index.ts` showing how to hook `cart:after-add`
+- [ ] Document behavior override pattern in `docs/themes.md`
+
+---
+
+### Phase 2 Complete When:
+
+- [x] Activating a component in `theme-child/index.ts` causes it to render instead of the core version — with zero changes to core files
+- [x] `storefuse.config.ts` is the only file that needs to change to switch child themes
+- [ ] A new module can register a page and it renders without manually creating an `app/` route file
+- [x] A child theme can subscribe to `cart:after-add` and run custom code
+- [x] `storefuse init` scaffolds all of the above correctly for new projects
+
+---
+
+## Phase 3: Enhanced Features (v0.3) ⏳ AFTER PHASE 2
 
 ### Package: @storefuse/adapter-woo-graphql
 

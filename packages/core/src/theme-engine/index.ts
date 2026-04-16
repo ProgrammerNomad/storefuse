@@ -92,7 +92,7 @@ export class ThemeManager {
     // Load core theme registry
     if (this.coreThemePath) {
       try {
-        const coreModule = await import(this.coreThemePath);
+        const coreModule = await import(this.coreThemePath as string);
         this.coreRegistry = coreModule.coreThemeRegistry;
       } catch (error) {
         console.warn(`Failed to load core theme: ${this.coreThemePath}`, error);
@@ -102,7 +102,7 @@ export class ThemeManager {
     // Load child theme registry (optional)
     if (this.childThemePath) {
       try {
-        const childModule = await import(this.childThemePath);
+        const childModule = await import(this.childThemePath as string);
         this.childRegistry = childModule.childThemeRegistry;
       } catch (error) {
         console.warn(`Failed to load child theme: ${this.childThemePath}`, error);

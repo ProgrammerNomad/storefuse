@@ -7,7 +7,7 @@ export default defineConfig({
   splitting: false,
   sourcemap: false,
   clean: true,
-  external: ["react", "react-dom", "next"],
+  external: ["react", "react-dom", "next", /^@storefuse\/.*/],
   banner: {
     js: '"use client";',
   },

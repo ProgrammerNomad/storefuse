@@ -1,18 +1,17 @@
 import type { Product } from "@storefuse/core";
-import ProductGrid from "../components/ProductGrid";
+import { ProductGrid } from "@storefuse/theme-core";
 
 export interface ShopPageProps {
   products: Product[];
-  onAddToCart?: (product: Product) => void;
 }
 
 /**
  * ShopPage
- * 
- * Main shop page displaying all products in a grid.
- * This is a module page contribution per README spec.
+ *
+ * Main shop page — data shell. Renders using theme-core UI components.
+ * UI can be overridden by child themes via the theme engine.
  */
-export default function ShopPage({ products, onAddToCart }: ShopPageProps) {
+export default function ShopPage({ products }: ShopPageProps) {
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-8">Shop</h1>
@@ -23,7 +22,7 @@ export default function ShopPage({ products, onAddToCart }: ShopPageProps) {
         </p>
       </div>
 
-      <ProductGrid products={products} onAddToCart={onAddToCart} columns={4} />
+      <ProductGrid products={products} columns={4} />
     </div>
   );
 }

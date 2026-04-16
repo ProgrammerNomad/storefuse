@@ -94,6 +94,14 @@ export {
   ThemeManager,
 } from "./theme-engine";
 
+// ThemeProvider, useThemeComponent (client), getThemeComponent (server)
+export {
+  ThemeProvider,
+  useThemeComponent,
+  getThemeComponent,
+} from "./theme-engine/ThemeProvider";
+export type { ThemeProviderProps } from "./theme-engine/ThemeProvider";
+
 // ============================================
 // CACHE (From README - Caching Helpers)
 // ============================================
@@ -112,9 +120,16 @@ export {
 export {
   EventBus,
   CoreEvents,
+  storefuseEvents,
 } from "./events";
 
 // ============================================
 // VERSION
 // ============================================
 export const VERSION = "0.0.1";
+
+// ============================================
+// RUNTIME (createStoreFuseApp factory)
+// ============================================
+export { createStoreFuseApp } from "./runtime";
+export type { StoreFuseApp } from "./runtime";

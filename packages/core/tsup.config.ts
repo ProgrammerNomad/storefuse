@@ -5,7 +5,10 @@ export default defineConfig({
   format: ["cjs", "esm"],
   dts: true,
   splitting: false,
-  sourcemap: true,
+  sourcemap: false,
   clean: true,
-  external: ["react", "react-dom", "@storefuse/core"],
+  external: ["react", "react-dom", "next"],
+  esbuildOptions(options) {
+    options.jsx = "automatic";
+  },
 });

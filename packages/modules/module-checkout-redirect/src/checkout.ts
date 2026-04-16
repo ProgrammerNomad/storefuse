@@ -1,4 +1,5 @@
 import type { CartItem } from "@storefuse/core";
+import { storefuseEvents, CoreEvents } from "@storefuse/core";
 
 export interface CheckoutRedirectOptions {
   /**
@@ -90,7 +91,9 @@ export function generateCheckoutUrl(options: CheckoutRedirectOptions): string {
  */
 export function redirectToCheckout(options: CheckoutRedirectOptions): void {
   const checkoutUrl = generateCheckoutUrl(options);
-  
+
+  storefuseEvents.emit(CoreEvents.CHECKOUT_BEFORE_REDIRECT, { url: checkoutUrl, options });
+
   if (typeof window !== "undefined") {
     window.location.href = checkoutUrl;
   }

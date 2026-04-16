@@ -58,6 +58,7 @@ export class EventBus {
  * Core Events (From README - can be extended by modules)
  */
 export const CoreEvents = {
+  // Framework lifecycle
   INIT: "storefuse:init",
   CONFIG_LOADED: "storefuse:config:loaded",
   ADAPTER_READY: "storefuse:adapter:ready",
@@ -65,4 +66,33 @@ export const CoreEvents = {
   THEME_LOADED: "storefuse:theme:loaded",
   REQUEST_START: "storefuse:request:start",
   REQUEST_END: "storefuse:request:end",
+
+  // Cart events — child themes and modules can hook into these
+  CART_BEFORE_ADD: "cart:before-add",
+  CART_AFTER_ADD: "cart:after-add",
+  CART_BEFORE_REMOVE: "cart:before-remove",
+  CART_AFTER_REMOVE: "cart:after-remove",
+  CART_UPDATED: "cart:updated",
+  CART_CLEARED: "cart:cleared",
+
+  // Checkout events
+  CHECKOUT_BEFORE_REDIRECT: "checkout:before-redirect",
+
+  // Product events
+  PRODUCT_VIEW: "product:view",
+
+  // Search events
+  SEARCH_QUERY: "search:query",
 } as const;
+
+/**
+ * Global singleton event bus for cross-module / child-theme communication.
+ *
+ * Usage in a child theme:
+ *   import { storefuseEvents, CoreEvents } from "@storefuse/core";
+ *
+ *   storefuseEvents.on(CoreEvents.CART_AFTER_ADD, ({ product, quantity }) => {
+ *     console.log(`Added ${quantity}× ${product.name} to cart`);
+ *   });
+ */
+export const storefuseEvents = new EventBus();

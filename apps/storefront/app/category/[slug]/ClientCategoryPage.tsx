@@ -1,6 +1,6 @@
 "use client";
 
-import { CategoryPage } from "@storefuse/theme-core";
+import { useThemeComponent } from "@storefuse/core";
 import type { Product, Category } from "@storefuse/core";
 
 interface ClientCategoryPageProps {
@@ -9,5 +9,8 @@ interface ClientCategoryPageProps {
 }
 
 export default function ClientCategoryPage({ category, products }: ClientCategoryPageProps) {
+  const CategoryPage = useThemeComponent("CategoryPage");
+
+  if (!CategoryPage) return null;
   return <CategoryPage category={category} products={products} />;
 }

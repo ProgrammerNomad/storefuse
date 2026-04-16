@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { storefuseEvents, CoreEvents } from "@storefuse/core";
 import type { CartItem, CartState, CartActions, CartContextValue } from "./types";
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
@@ -76,25 +77,30 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [items, isHydrated]);
 
   const addToCart: CartActions["addToCart"] = (product, quantity = 1) => {
+    storefuseEvents.emit(CoreEvents.CART_BEFORE_ADD, { product, quantity });
     setItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.product.id === product.id);
-      
-      if (existingItem) {
-        // Update quantity of existing item
-        return prevItems.map((item) =>
-          item.product.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
-        );
-      } else {
-        // Add new item
-        return [...prevItems, { product, quantity }];
-      }
+      const nextItems = existingItem
+        ? prevItems.map((item) =>
+            item.product.id === product.id
+              ? { ...item, quantity: item.quantity + quantity }
+              : item
+          )
+        : [...prevItems, { product, quantity }];
+
+      storefuseEvents.emit(CoreEvents.CART_AFTER_ADD, { product, quantity, items: nextItems });
+      return nextItems;
     });
   };
 
   const removeFromCart: CartActions["removeFromCart"] = (productId) => {
-    setItems((prevItems) => prevItems.filter((item) => item.product.id !== productId));
+    const removing = items.find((i) => i.product.id === productId);
+    storefuseEvents.emit(CoreEvents.CART_BEFORE_REMOVE, { productId, item: removing });
+    setItems((prevItems) => {
+      const nextItems = prevItems.filter((item) => item.product.id !== productId);
+      storefuseEvents.emit(CoreEvents.CART_AFTER_REMOVE, { productId, items: nextItems });
+      return nextItems;
+    });
   };
 
   const updateQuantity: CartActions["updateQuantity"] = (productId, quantity) => {
@@ -112,6 +118,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const clearCart: CartActions["clearCart"] = () => {
     setItems([]);
+    storefuseEvents.emit(CoreEvents.CART_CLEARED, {});
   };
 
   const { itemCount, subtotal } = calculateTotals(items);

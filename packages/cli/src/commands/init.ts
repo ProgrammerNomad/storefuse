@@ -123,6 +123,8 @@ async function createProjectStructure(
     "app/cart",
     "public",
     "lib",
+    "theme-child",
+    "theme-child/components",
   ];
 
   for (const dir of dirs) {
@@ -134,9 +136,9 @@ async function createProjectStructure(
 }
 
 async function createAppFiles(projectPath: string) {
-  // app/layout.tsx
+  // app/layout.tsx - uses StoreFuseShell (no direct theme-core imports)
   const layoutContent = `import type { Metadata } from "next";
-import { Header, Footer } from "@storefuse/theme-core";
+import { StoreFuseShell } from "./StoreFuseShell";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -152,13 +154,66 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <StoreFuseShell siteName="My Store">{children}</StoreFuseShell>
       </body>
     </html>
   );
 }
+`;
+
+  // app/StoreFuseShell.tsx - client component that wires theme + cart
+  const shellContent = `"use client";
+
+import { ThemeProvider, useThemeComponent } from "@storefuse/core";
+import { CartProvider } from "@storefuse/module-cart";
+import { coreThemeRegistry } from "@storefuse/theme-core";
+import { childThemeRegistry } from "../theme-child";
+import type { ReactNode } from "react";
+
+interface StoreFuseShellProps {
+  children: ReactNode;
+  siteName?: string;
+}
+
+function InnerShell({ children, siteName = "My Store" }: StoreFuseShellProps) {
+  const Header = useThemeComponent("Header");
+  const Footer = useThemeComponent("Footer");
+
+  return (
+    <>
+      {Header && <Header siteName={siteName} />}
+      <main className="min-h-screen">{children}</main>
+      {Footer && <Footer siteName={siteName} />}
+    </>
+  );
+}
+
+export function StoreFuseShell({ children, siteName }: StoreFuseShellProps) {
+  return (
+    <ThemeProvider core={coreThemeRegistry} child={childThemeRegistry}>
+      <CartProvider>
+        <InnerShell siteName={siteName}>{children}</InnerShell>
+      </CartProvider>
+    </ThemeProvider>
+  );
+}
+`;
+
+  // theme-child/index.ts - empty registry ready to be filled
+  const childThemeIndex = `/**
+ * Child Theme Registry
+ *
+ * Add your custom components here to override core theme components.
+ * Only include the components you want to customise.
+ * Everything else automatically falls back to the core theme.
+ *
+ * Example:
+ *   Header: () => import("./components/Header"),
+ *   ProductCard: () => import("./components/ProductCard"),
+ */
+export const childThemeRegistry = {
+  // Header: () => import("./components/Header"),
+};
 `;
 
   // app/page.tsx
@@ -167,7 +222,7 @@ export default function RootLayout({
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-5xl font-bold mb-4">Welcome to StoreFuse</h1>
       <p className="text-xl text-gray-600 mb-8">
-        Modern WooCommerce storefront powered by Next.js 16
+        Modern WooCommerce storefront powered by Next.js
       </p>
       <a
         href="/shop"
@@ -222,7 +277,7 @@ export default async function ShopPage() {
 
   // app/product/[slug]/page.tsx
   const productContent = `import { getAdapter } from "@/lib/adapter";
-import { ProductDetailPage } from "@storefuse/module-products";
+import ClientProductDetail from "./ClientProductDetail";
 import { notFound } from "next/navigation";
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -232,40 +287,67 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   if (!product) notFound();
 
+  return <ClientProductDetail product={product} />;
+}
+`;
+
+  // app/product/[slug]/ClientProductDetail.tsx
+  const clientProductContent = `"use client";
+
+import { useThemeComponent } from "@storefuse/core";
+import type { Product } from "@storefuse/core";
+
+interface ClientProductDetailProps {
+  product: Product;
+}
+
+export default function ClientProductDetail({ product }: ClientProductDetailProps) {
+  const ProductDetailPage = useThemeComponent("ProductDetailPage");
+
+  if (!ProductDetailPage) return null;
   return <ProductDetailPage product={product} />;
 }
 `;
 
   // app/globals.css
-  const cssContent = `@import "tailwindcss";
-
-@theme {
-  --color-background: #ffffff;
-  --color-foreground: #171717;
-}
+  const cssContent = `@tailwind base;
+@tailwind components;
+@tailwind utilities;
 `;
 
   // lib/adapter.ts
   const adapterContent = `import { WooRestAdapter } from "@storefuse/adapter-woo-rest";
+import type { StoreFuseAdapter } from "@storefuse/core";
 
-let adapter: WooRestAdapter | null = null;
+let adapterInstance: StoreFuseAdapter | null = null;
 
-export function getAdapter() {
-  if (!adapter) {
-    adapter = new WooRestAdapter({
-      url: process.env.WOO_URL!,
-      consumerKey: process.env.WOO_KEY!,
-      consumerSecret: process.env.WOO_SECRET!,
+export function getAdapter(): StoreFuseAdapter {
+  if (!adapterInstance) {
+    if (!process.env.WOO_URL || !process.env.WOO_KEY || !process.env.WOO_SECRET) {
+      throw new Error(
+        "Missing WooCommerce credentials. Set WOO_URL, WOO_KEY, and WOO_SECRET in .env.local"
+      );
+    }
+    adapterInstance = new WooRestAdapter({
+      name: "woo-rest",
+      endpoint: process.env.WOO_URL,
+      keys: {
+        consumerKey: process.env.WOO_KEY,
+        consumerSecret: process.env.WOO_SECRET,
+      },
     });
   }
-  return adapter;
+  return adapterInstance;
 }
 `;
 
   await fs.writeFile(path.join(projectPath, "app/layout.tsx"), layoutContent);
+  await fs.writeFile(path.join(projectPath, "app/StoreFuseShell.tsx"), shellContent);
+  await fs.writeFile(path.join(projectPath, "theme-child/index.ts"), childThemeIndex);
   await fs.writeFile(path.join(projectPath, "app/page.tsx"), homeContent);
   await fs.writeFile(path.join(projectPath, "app/shop/page.tsx"), shopContent);
   await fs.writeFile(path.join(projectPath, "app/product/[slug]/page.tsx"), productContent);
+  await fs.writeFile(path.join(projectPath, "app/product/[slug]/ClientProductDetail.tsx"), clientProductContent);
   await fs.writeFile(path.join(projectPath, "app/globals.css"), cssContent);
   await fs.writeFile(path.join(projectPath, "lib/adapter.ts"), adapterContent);
 }
@@ -325,6 +407,7 @@ export default defineStoreFuseConfig({
   modules: ${JSON.stringify(config.modules)},
   theme: {
     core: "@storefuse/theme-core",
+    child: "./theme-child", // your customisations live here
   },
   cache: {
     strategy: "next-fetch",

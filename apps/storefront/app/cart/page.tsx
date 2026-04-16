@@ -1,5 +1,5 @@
-import { CartPage } from "@storefuse/theme-core";
+import ClientCartPage from "./ClientCartPage";
 
 export default function Cart() {
-  return <CartPage />;
+  return <ClientCartPage />;
 }

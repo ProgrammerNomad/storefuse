@@ -1,8 +1,7 @@
 "use client";
 
 import type { Product } from "@storefuse/core";
-import ProductImage from "../components/ProductImage";
-import Price from "../components/Price";
+import { ProductImage, Price } from "@storefuse/theme-core";
 
 export interface ProductDetailPageProps {
   product: Product;
