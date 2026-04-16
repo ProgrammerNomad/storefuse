@@ -109,7 +109,7 @@ export async function loadConfig(
   configPath: string
 ): Promise<StoreFuseConfig> {
   try {
-    const config = await import(configPath);
+    const config = await import(/* webpackIgnore: true */ configPath as any);
     const loadedConfig = config.default || config;
 
     const validation = validateConfig(loadedConfig);

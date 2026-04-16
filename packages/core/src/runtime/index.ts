@@ -47,7 +47,7 @@ export async function createStoreFuseApp(
   // Load core theme registry
   let coreRegistry: ThemeRegistry;
   try {
-    const coreMod = await import(config.theme.core);
+    const coreMod = await import(/* webpackIgnore: true */ config.theme.core as any);
     coreRegistry = coreMod.coreThemeRegistry ?? coreMod.default?.coreThemeRegistry;
 
     if (!coreRegistry) {
@@ -65,7 +65,7 @@ export async function createStoreFuseApp(
   let childRegistry: Partial<ThemeRegistry> = {};
   if (config.theme.child) {
     try {
-      const childMod = await import(config.theme.child);
+      const childMod = await import(/* webpackIgnore: true */ config.theme.child as any);
       childRegistry =
         childMod.childThemeRegistry ?? childMod.default?.childThemeRegistry ?? {};
     } catch (err) {

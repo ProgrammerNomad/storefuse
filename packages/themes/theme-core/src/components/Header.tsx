@@ -76,7 +76,7 @@ export default function Header({ siteName = "StoreFuse", className = "" }: Heade
             </Link>
 
             {/* Search Bar */}
-            <form onSubmit={handleSearch} className="flex-1 max-w-xl hidden md:flex">
+            <form onSubmit={handleSearch} className="flex-1 max-w-2xl hidden md:flex mx-8">
               <div className="relative w-full">
                 <input
                   type="search"
@@ -98,7 +98,7 @@ export default function Header({ siteName = "StoreFuse", className = "" }: Heade
             </form>
 
             {/* Right Icons */}
-            <div className="flex items-center gap-1 ml-auto md:ml-0">
+            <div className="flex items-center gap-1 ml-auto">
               {/* Search icon mobile */}
               <Link href="/search" className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Search">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -107,21 +107,38 @@ export default function Header({ siteName = "StoreFuse", className = "" }: Heade
               </Link>
 
               {/* Wishlist */}
-              <button className="hidden md:flex p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Wishlist">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <button className="hidden md:flex items-center gap-1.5 p-2 rounded-lg hover:bg-gray-100 transition-colors group text-warm-text" aria-label="Wishlist">
+                <svg className="w-5 h-5 group-hover:text-brand-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
+                <span className="text-sm font-medium group-hover:text-brand-500 transition-colors">Wishlist</span>
               </button>
 
               {/* Account */}
-              <button className="hidden md:flex p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Account">
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <button className="hidden md:flex items-center gap-1.5 p-2 rounded-lg hover:bg-gray-100 transition-colors group text-warm-text" aria-label="Account">
+                <svg className="w-5 h-5 group-hover:text-brand-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
+                <span className="text-sm font-medium group-hover:text-brand-500 transition-colors">Profile</span>
               </button>
 
-              {/* Cart */}
-              <Link href="/cart" className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label={`Cart (${itemCount} items)`}>
+              {/* Cart Desktop */}
+              <Link href="/cart" className="hidden md:flex items-center gap-1.5 p-2 rounded-lg hover:bg-gray-100 transition-colors group text-warm-text" aria-label={`Cart (${itemCount} items)`}>
+                <div className="relative">
+                  <svg className="w-5 h-5 group-hover:text-brand-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                  </svg>
+                  {itemCount > 0 && (
+                    <span className="absolute -top-1.5 -right-2 bg-brand-500 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1 leading-none shadow-sm">
+                      {itemCount > 99 ? "99+" : itemCount}
+                    </span>
+                  )}
+                </div>
+                <span className="text-sm font-medium group-hover:text-brand-500 transition-colors">Cart</span>
+              </Link>
+
+              {/* Cart Mobile */}
+              <Link href="/cart" className="md:hidden relative p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label={`Cart (${itemCount} items)`}>
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
@@ -138,7 +155,7 @@ export default function Header({ siteName = "StoreFuse", className = "" }: Heade
         {/* Category Nav Bar — Desktop */}
         <div className="hidden md:block border-t border-warm-border bg-white">
           <div className="container mx-auto px-4 md:px-6">
-            <nav className="flex items-center gap-1 h-10 overflow-x-auto scrollbar-hide">
+            <nav className="flex items-center justify-center gap-2 h-10 overflow-x-auto scrollbar-hide">
               {CATEGORIES.map((cat) => (
                 <Link
                   key={cat.href}

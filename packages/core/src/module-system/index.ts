@@ -183,8 +183,8 @@ export class ModuleLoader {
    */
   private async loadModule(moduleName: string): Promise<void> {
     try {
-      // Dynamic import of the module
-      const modulePackage = await import(`@storefuse/module-${moduleName}`);
+      // Dynamic import of the module (runtime-only, not statically analyzable)
+      const modulePackage = await import(/* webpackIgnore: true */ `@storefuse/module-${moduleName}` as any);
       const module: StoreFuseModule = modulePackage.default || modulePackage;
 
       // Register the module
