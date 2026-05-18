@@ -9,7 +9,7 @@ export default function SearchPage() {
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Resolved through the theme engine — child theme can override any of these
+  // Resolved through the theme engine - child theme can override any of these
   const Container = useThemeComponent("Container");
   const SearchBar = useThemeComponent("SearchBar");
   const SearchResults = useThemeComponent("SearchResults");

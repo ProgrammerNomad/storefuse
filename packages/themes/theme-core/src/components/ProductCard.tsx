@@ -80,7 +80,7 @@ export default function ProductCard({
           </svg>
         </button>
 
-        {/* Quick add — visible on hover desktop */}
+        {/* Quick add - visible on hover desktop */}
         {isInStock && (
           <div className="absolute bottom-0 left-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 p-3">
             <AddToCartButton product={product} size="sm" className="w-full bg-white/95 backdrop-blur-sm !text-warm-text !bg-white border border-warm-border hover:!bg-brand-500 hover:!text-white hover:!border-brand-500" />

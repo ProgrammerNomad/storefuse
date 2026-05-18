@@ -141,14 +141,14 @@ export default function ProductDetailPage({ product }: ProductDetailPageProps) {
             <div className="flex items-center gap-2">
               <span className={`w-2 h-2 rounded-full ${isInStock ? "bg-green-500" : "bg-red-500"}`} />
               <span className={`text-sm font-medium ${isInStock ? "text-green-600" : "text-red-600"}`}>
-                {isInStock ? "In Stock — Ready to ship" : "Out of Stock"}
+                {isInStock ? "In Stock - Ready to ship" : "Out of Stock"}
               </span>
               {isInStock && product.stockQuantity !== undefined && product.stockQuantity <= 10 && (
                 <span className="text-sm text-amber-600">· Only {product.stockQuantity} left</span>
               )}
             </div>
 
-            {/* Quantity + Add to Cart — desktop */}
+            {/* Quantity + Add to Cart - desktop */}
             <div className="hidden md:flex items-center gap-3">
               <div className="flex items-center border border-warm-border rounded-xl overflow-hidden">
                 <button
@@ -235,9 +235,9 @@ export default function ProductDetailPage({ product }: ProductDetailPageProps) {
             {activeTab === "specs" && (
               <div className="max-w-md space-y-3">
                 {[
-                  { label: "SKU", value: product.sku || "—" },
+                  { label: "SKU", value: product.sku || "-" },
                   { label: "Status", value: isInStock ? "In Stock" : "Out of Stock" },
-                  { label: "Category", value: product.categories?.map((c) => c.name).join(", ") || "—" },
+                  { label: "Category", value: product.categories?.map((c) => c.name).join(", ") || "-" },
                 ].map((row) => (
                   <div key={row.label} className="flex gap-4 py-2 border-b border-warm-border text-sm">
                     <span className="w-32 text-warm-muted font-medium">{row.label}</span>

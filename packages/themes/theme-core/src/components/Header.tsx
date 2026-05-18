@@ -152,7 +152,7 @@ export default function Header({ siteName = "StoreFuse", className = "" }: Heade
           </div>
         </div>
 
-        {/* Category Nav Bar — Desktop */}
+        {/* Category Nav Bar - Desktop */}
         <div className="hidden md:block border-t border-warm-border bg-white">
           <div className="container mx-auto px-4 md:px-6">
             <nav className="flex items-center justify-center gap-2 h-10 overflow-x-auto scrollbar-hide">

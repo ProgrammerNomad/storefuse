@@ -60,11 +60,11 @@ Phase 1 packages are built and compiling. However a post-phase review found that
 **Theme System**: ⚠️ Theme engine code exists but is NOT wired to the running app
 
 > **Known Gaps Found in Review:**
-> - `layout.tsx` hard-imports `@storefuse/theme-core` directly — child theme registry is never consulted
-> - `storefuse.config.ts` `theme.child` setting is declarative only — does nothing at runtime
-> - Module `pages` registry and actual Next.js `app/` routes are two parallel systems — module registry is never used
-> - `module-products` and `theme-core` both contain duplicate UI components (ProductCard, ProductGrid, etc.) — ownership is unclear
-> - CLI `init` command scaffolds direct theme-core imports — new projects start with the wrong pattern
+> - `layout.tsx` hard-imports `@storefuse/theme-core` directly - child theme registry is never consulted
+> - `storefuse.config.ts` `theme.child` setting is declarative only - does nothing at runtime
+> - Module `pages` registry and actual Next.js `app/` routes are two parallel systems - module registry is never used
+> - `module-products` and `theme-core` both contain duplicate UI components (ProductCard, ProductGrid, etc.) - ownership is unclear
+> - CLI `init` command scaffolds direct theme-core imports - new projects start with the wrong pattern
 > - EventBus exists but is not connected to any module lifecycle or rendering pipeline
 
 ### Package: @storefuse/core ✅ COMPLETED
@@ -404,7 +404,7 @@ Phase 1 packages are built and compiling. However a post-phase review found that
   - [ ] Test meta tag generation
   - [ ] Validate structured data
 
-### Documentation (v0.2 — superseded by Phase 3)
+### Documentation (v0.2 - superseded by Phase 3)
 
 - [x] Create theme customization guide (docs/themes.md)
 - [ ] Write getting started guide
@@ -414,7 +414,7 @@ Phase 1 packages are built and compiling. However a post-phase review found that
 
 ---
 
-## Phase 2: Architecture Fix — Connect the Dots (v0.2) ✅ COMPLETED
+## Phase 2: Architecture Fix - Connect the Dots (v0.2) ✅ COMPLETED
 
 > **Goal**: Make the framework actually work as designed. The code exists. The wiring does not.
 > All original promises (child theme overrides, module-driven routing, config-driven runtime)
@@ -422,7 +422,7 @@ Phase 1 packages are built and compiling. However a post-phase review found that
 
 ---
 
-### Step 1: Fix UI Ownership — Remove Duplicate Components from module-products
+### Step 1: Fix UI Ownership - Remove Duplicate Components from module-products
 
 **Rule**: Modules own data/logic/contracts. Themes own UI.
 
@@ -432,20 +432,20 @@ Phase 1 packages are built and compiling. However a post-phase review found that
 - [x] Delete `packages/modules/module-products/src/components/ProductList.tsx`
 - [x] Delete `packages/modules/module-products/src/components/Price.tsx`
 - [x] Delete `packages/modules/module-products/src/components/` directory
-- [x] Update `packages/modules/module-products/src/index.ts` — remove all component exports
+- [x] Update `packages/modules/module-products/src/index.ts` - remove all component exports
 - [x] Verify `packages/themes/theme-core` is the single source of truth for all UI components
 - [x] Confirm build passes after deletion
 
 ---
 
-### Step 2: Wire the Theme Engine — ThemeProvider + useThemeComponent
+### Step 2: Wire the Theme Engine - ThemeProvider + useThemeComponent
 
 **Goal**: Child theme registry is read at runtime and overrides core components transparently.
 
 - [x] Create `packages/core/src/theme-engine/ThemeProvider.tsx`
-  - [x] `ThemeProvider` component — accepts `coreRegistry` and `childRegistry` props, merges them (child wins), exposes via React context
-  - [x] `useThemeComponent(key)` hook — returns the resolved component for a given key from context
-  - [x] `ThemeContext` — typed React context holding the merged registry
+  - [x] `ThemeProvider` component - accepts `coreRegistry` and `childRegistry` props, merges them (child wins), exposes via React context
+  - [x] `useThemeComponent(key)` hook - returns the resolved component for a given key from context
+  - [x] `ThemeContext` - typed React context holding the merged registry
 - [x] Export `ThemeProvider` and `useThemeComponent` from `packages/core/src/index.ts`
 - [x] Export `ThemeProvider` and `useThemeComponent` from `packages/core/src/theme-engine/index.ts`
 - [x] Add server-side helper `getThemeComponent(key, coreRegistry, childRegistry)` for use in Server Components
@@ -475,9 +475,9 @@ Phase 1 packages are built and compiling. However a post-phase review found that
 
 ### Step 4: Make storefuse.config.ts Drive the Runtime
 
-**Goal**: The config file is the single source of truth — reading `theme.child` loads the correct child registry automatically.
+**Goal**: The config file is the single source of truth - reading `theme.child` loads the correct child registry automatically.
 
-- [x] Create `packages/core/src/runtime/index.ts` — `createStoreFuseApp(config)` factory
+- [x] Create `packages/core/src/runtime/index.ts` - `createStoreFuseApp(config)` factory
   - [x] Reads `config.theme.core` and `config.theme.child`
   - [x] Dynamically imports and returns merged theme registry
   - [x] Returns loaded module list
@@ -487,12 +487,12 @@ Phase 1 packages are built and compiling. However a post-phase review found that
 
 ---
 
-### Step 5: Fix CLI — Scaffold the Correct Pattern
+### Step 5: Fix CLI - Scaffold the Correct Pattern
 
 **Goal**: Every project created with `storefuse init` starts with the correct wiring.
 
 - [x] Update `packages/cli/src/commands/init.ts` template for `layout.tsx`
-  - [x] Generated `layout.tsx` must use `ThemeProvider` + `useThemeComponent` — not direct imports
+  - [x] Generated `layout.tsx` must use `ThemeProvider` + `useThemeComponent` - not direct imports
   - [x] Generated `layout.tsx` must call `createStoreFuseApp(config)` to load registries
 - [x] Update CLI `add theme child` command
   - [x] Generated `theme-child/index.ts` has correct registry export
@@ -505,11 +505,11 @@ Phase 1 packages are built and compiling. However a post-phase review found that
 
 **Goal**: Module `pages` definitions become the source of truth. Next.js route files delegate to modules instead of duplicating logic.
 
-- [x] Decide routing strategy (Option A — Thin shell routes): Keep `app/shop/page.tsx` etc. but make them thin delegations through the theme engine
-- [x] Update `app/shop/page.tsx` — server-side data fetch, delegates rendering to `ClientShopPage` (uses `useThemeComponent("ProductGrid")`)
-- [x] Update `app/product/[slug]/page.tsx` — already thin shell to `ClientProductDetail` (uses `useThemeComponent`)
-- [x] Update `app/category/[slug]/page.tsx` — already thin shell to `ClientCategoryPage` (uses `useThemeComponent`)
-- [x] Update `app/cart/page.tsx` — delegates to `ClientCartPage` (uses `useThemeComponent("CartPage")`)
+- [x] Decide routing strategy (Option A - Thin shell routes): Keep `app/shop/page.tsx` etc. but make them thin delegations through the theme engine
+- [x] Update `app/shop/page.tsx` - server-side data fetch, delegates rendering to `ClientShopPage` (uses `useThemeComponent("ProductGrid")`)
+- [x] Update `app/product/[slug]/page.tsx` - already thin shell to `ClientProductDetail` (uses `useThemeComponent`)
+- [x] Update `app/category/[slug]/page.tsx` - already thin shell to `ClientCategoryPage` (uses `useThemeComponent`)
+- [x] Update `app/cart/page.tsx` - delegates to `ClientCartPage` (uses `useThemeComponent("CartPage")`)
 - [ ] Confirm adding a new module with a `pages` entry works without manually creating route files
 
 ---
@@ -536,7 +536,7 @@ Phase 1 packages are built and compiling. However a post-phase review found that
 
 ### Phase 2 Complete When:
 
-- [x] Activating a component in `theme-child/index.ts` causes it to render instead of the core version — with zero changes to core files
+- [x] Activating a component in `theme-child/index.ts` causes it to render instead of the core version - with zero changes to core files
 - [x] `storefuse.config.ts` is the only file that needs to change to switch child themes
 - [ ] A new module can register a page and it renders without manually creating an `app/` route file
 - [x] A child theme can subscribe to `cart:after-add` and run custom code

@@ -8,7 +8,7 @@ export interface ShopPageProps {
 /**
  * ShopPage
  *
- * Main shop page — data shell. Renders using theme-core UI components.
+ * Main shop page - data shell. Renders using theme-core UI components.
  * UI can be overridden by child themes via the theme engine.
  */
 export default function ShopPage({ products }: ShopPageProps) {

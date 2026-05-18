@@ -8,7 +8,7 @@
  * 1. Rename this file to ProductCard.tsx (remove .example)
  * 2. Add to src/index.ts:
  *      ProductCard: () => import("./components/ProductCard"),
- * 3. Restart your dev server — all product grids will use your version
+ * 3. Restart your dev server - all product grids will use your version
  */
 
 import Link from "next/link";

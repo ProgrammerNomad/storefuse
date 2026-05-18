@@ -45,7 +45,7 @@ export default async function HomePage() {
               <span className="text-brand-500">modern homes</span>
             </h1>
             <p className="text-lg text-warm-muted mb-8 leading-relaxed max-w-xl">
-              Discover artisan-made festive pieces, diyas, jewelry and home accents — 
+              Discover artisan-made festive pieces, diyas, jewelry and home accents - 
               each one telling a story of craft and tradition.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -108,7 +108,7 @@ export default async function HomePage() {
               View all <span aria-hidden>→</span>
             </Link>
           </div>
-          {/* ProductGrid is resolved via the theme engine — override it in theme-child/index.ts */}
+          {/* ProductGrid is resolved via the theme engine - override it in theme-child/index.ts */}
           <ClientBestSellers products={bestSellers} />
         </section>
       )}

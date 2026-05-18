@@ -102,7 +102,7 @@ export function ThemeProvider({ core, child, children }: ThemeProviderProps) {
  * useThemeComponent
  *
  * Returns the resolved component for a given theme key.
- * Child theme overrides core theme — fallback is null while loading.
+ * Child theme overrides core theme - fallback is null while loading.
  *
  * @example
  * const Header = useThemeComponent("Header");

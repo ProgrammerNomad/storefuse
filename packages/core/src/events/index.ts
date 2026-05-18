@@ -67,7 +67,7 @@ export const CoreEvents = {
   REQUEST_START: "storefuse:request:start",
   REQUEST_END: "storefuse:request:end",
 
-  // Cart events — child themes and modules can hook into these
+  // Cart events - child themes and modules can hook into these
   CART_BEFORE_ADD: "cart:before-add",
   CART_AFTER_ADD: "cart:after-add",
   CART_BEFORE_REMOVE: "cart:before-remove",

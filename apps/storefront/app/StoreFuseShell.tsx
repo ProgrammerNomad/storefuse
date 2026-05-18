@@ -13,7 +13,7 @@ interface StoreFuseShellProps {
 
 /**
  * Inner layout that resolves Header and Footer through the theme engine.
- * Child theme overrides core — all without touching core files.
+ * Child theme overrides core - all without touching core files.
  */
 function InnerShell({ children, siteName = "StoreFuse" }: StoreFuseShellProps) {
   const Header = useThemeComponent("Header");
