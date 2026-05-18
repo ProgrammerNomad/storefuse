@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAdapter } from "@/lib/adapter";
 import type { Product } from "@storefuse/core";
+import ClientBestSellers from "./ClientBestSellers";
 
 const CATEGORIES = [
   { label: "Festive Decor", icon: "🪔", href: "/category/festive-decor", color: "bg-orange-50 hover:bg-orange-100" },
@@ -107,55 +108,8 @@ export default async function HomePage() {
               View all <span aria-hidden>→</span>
             </Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {bestSellers.map((product) => {
-              const image = product.images?.[0];
-              const hasDiscount = product.regularPrice && product.regularPrice !== product.price;
-              const discountPct = hasDiscount
-                ? Math.round((1 - parseFloat(product.price.replace(/[^0-9.]/g, "")) / parseFloat(product.regularPrice!.replace(/[^0-9.]/g, ""))) * 100)
-                : 0;
-              return (
-                <Link key={product.id} href={`/product/${product.slug}`} className="group card card-hover block">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-gray-50">
-                    {image ? (
-                      <img
-                        src={image.src}
-                        alt={image.alt || product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-brand-50 to-orange-100 flex items-center justify-center">
-                        <span className="text-4xl opacity-30">🪔</span>
-                      </div>
-                    )}
-                    {hasDiscount && discountPct > 0 && (
-                      <span className="absolute top-2.5 left-2.5 badge bg-red-500 text-white">
-                        −{discountPct}%
-                      </span>
-                    )}
-                    {product.stockStatus !== "instock" && (
-                      <span className="absolute top-2.5 right-2.5 badge bg-gray-900 text-white">
-                        Sold Out
-                      </span>
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <p className="text-xs text-warm-muted mb-1">⭐ 4.8 (120)</p>
-                    <h3 className="text-sm font-semibold text-warm-text line-clamp-2 group-hover:text-brand-500 transition-colors min-h-[2.5rem]">
-                      {product.name}
-                    </h3>
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className="font-bold text-warm-text">{product.price}</span>
-                      {hasDiscount && (
-                        <span className="text-xs text-warm-muted line-through">{product.regularPrice}</span>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+          {/* ProductGrid is resolved via the theme engine — override it in theme-child/index.ts */}
+          <ClientBestSellers products={bestSellers} />
         </section>
       )}
 

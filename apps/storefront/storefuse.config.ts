@@ -12,6 +12,9 @@ export default defineStoreFuseConfig({
   modules: ["products"],
   theme: {
     core: "@storefuse/theme-core",
+    // NOTE: The runtime reads childThemeRegistry directly from app/StoreFuseShell.tsx
+    // (Next.js requires static imports). Changing this string alone does NOT switch
+    // the active child theme — update the import in StoreFuseShell.tsx as well.
     child: "./theme-child",
   },
   cache: {

@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Container } from "@storefuse/theme-core";
-import { SearchBar, SearchResults } from "@storefuse/theme-core";
+import { useThemeComponent } from "@storefuse/core";
 import type { SearchResult } from "@storefuse/module-search";
 
 export default function SearchPage() {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // Resolved through the theme engine — child theme can override any of these
+  const Container = useThemeComponent("Container");
+  const SearchBar = useThemeComponent("SearchBar");
+  const SearchResults = useThemeComponent("SearchResults");
 
   const handleSearch = async (searchQuery: string) => {
     setIsLoading(true);
@@ -27,6 +31,8 @@ export default function SearchPage() {
       setIsLoading(false);
     }
   };
+
+  if (!Container || !SearchBar || !SearchResults) return null;
 
   return (
     <Container>

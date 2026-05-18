@@ -21,9 +21,13 @@ function InnerShell({ children, siteName = "StoreFuse" }: StoreFuseShellProps) {
 
   return (
     <>
-      {Header && <Header siteName={siteName} />}
+      {Header
+        ? <Header siteName={siteName} />
+        : <div className="h-16 bg-white border-b border-gray-100 animate-pulse" aria-hidden />}
       <main className="min-h-screen">{children}</main>
-      {Footer && <Footer siteName={siteName} />}
+      {Footer
+        ? <Footer siteName={siteName} />
+        : <div className="h-20 bg-gray-50 animate-pulse" aria-hidden />}
     </>
   );
 }
